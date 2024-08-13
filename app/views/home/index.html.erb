@@ -1,0 +1,11 @@
+<div class="jeopardy-home">
+  <h1>Welcome to Jeopardy!</h1>
+
+  <p>Test your knowledge with our Jeopardy-style quiz game.</p>
+
+  <div class="stats">
+    <p>We have <%= @total_clues %> clues across <%= @categories %> categories.</p>
+  </div>
+
+  <%= button_to "Start New Game", new_game_path, method: :get, class: "start-game-button" %>
+</div>

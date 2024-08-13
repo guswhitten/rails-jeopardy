@@ -1,0 +1,30 @@
+<h1>Jeopardy Game Board</h1>
+<h2>Score: $<%= @game.score %></h2>
+
+<table class="game-board">
+  <thead>
+  <tr>
+    <% @categories.each do |category| %>
+      <th><%= category %></th>
+    <% end %>
+  </tr>
+  </thead>
+  <tbody>
+  <% [200, 400, 600, 800, 1000].each do |value| %>
+    <tr>
+      <% @categories.each do |category| %>
+        <% clue = @clues[category][value.to_s] %>
+        <td>
+          <% if clue %>
+            <%= button_to "$#{value}", clue_path(@game, clue), method: :get, class: "clue-button" %>
+          <% else %>
+            -
+          <% end %>
+        </td>
+      <% end %>
+    </tr>
+  <% end %>
+  </tbody>
+</table>
+
+<%= link_to "End Game", root_path, class: "end-game-button" %>

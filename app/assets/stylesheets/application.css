@@ -1,0 +1,28 @@
+.jeopardy-home {
+    text-align: center;
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    color: #060CE9;
+}
+
+.stats {
+    margin: 20px 0;
+    font-style: italic;
+}
+
+.start-game-button {
+    background-color: #060CE9;
+    color: white;
+    padding: 10px 20px;
+    font-size: 18px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.start-game-button:hover {
+    background-color: #0507a5;
+}
