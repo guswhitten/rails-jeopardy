@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_13_210421) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_13_210054) do
   create_table "clues", force: :cascade do |t|
     t.string "category"
     t.date "air_date"
@@ -38,6 +38,7 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_13_210421) do
     t.integer "player_1_score"
     t.integer "player_2_score"
     t.integer "player_3_score"
+    t.text "categories"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

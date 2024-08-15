@@ -1,30 +1,38 @@
-<h1>Jeopardy Game Board</h1>
-<h2>Score: $<%= @game.score %></h2>
+<%= javascript_include_tag 'application' %>
 
-<table class="game-board">
-  <thead>
-  <tr>
-    <% @categories.each do |category| %>
-      <th><%= category %></th>
-    <% end %>
-  </tr>
-  </thead>
-  <tbody>
-  <% [200, 400, 600, 800, 1000].each do |value| %>
+<div class="game-container" data-round1='<%= @round_1_data.to_json %>'>
+  <h1>Jeopardy!</h1>
+
+  <table class="game-board">
+    <thead>
     <tr>
-      <% @categories.each do |category| %>
-        <% clue = @clues[category][value.to_s] %>
-        <td>
-          <% if clue %>
-            <%= button_to "$#{value}", clue_path(@game, clue), method: :get, class: "clue-button" %>
-          <% else %>
-            -
-          <% end %>
-        </td>
+      <% @game.categories.each do |category| %>
+        <th><%= category %></th>
       <% end %>
     </tr>
-  <% end %>
-  </tbody>
-</table>
+    </thead>
+    <tbody>
+    <% [200, 400, 600, 800, 1000].each do |value| %>
+      <tr>
+        <% @game.categories.each do |category| %>
+          <td data-category="<%= category %>" data-value="<%= value %>">
+            $<%= value %>
+          </td>
+        <% end %>
+      </tr>
+    <% end %>
+    </tbody>
+  </table>
 
-<%= link_to "End Game", root_path, class: "end-game-button" %>
+  <div class="player-scores">
+    <div class="player-score">Player 1: $<%= @game.player_1_score %></div>
+    <div class="player-score">Player 2: $<%= @game.player_2_score %></div>
+    <div class="player-score">Player 3: $<%= @game.player_3_score %></div>
+  </div>
+</div>
+
+<div class="overlay"></div>
+<div class="popover">
+  <div class="popover-question"></div>
+  <div class="popover-timer">5</div>
+</div>
