@@ -27,21 +27,17 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_13_210054) do
     t.index ["show_number"], name: "index_clues_on_show_number"
   end
 
-  create_table "game_categories", force: :cascade do |t|
-    t.integer "game_id", null: false
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["game_id"], name: "index_game_categories_on_game_id"
-  end
-
   create_table "games", force: :cascade do |t|
-    t.integer "player_1_score"
-    t.integer "player_2_score"
-    t.integer "player_3_score"
+    t.string "player_name"
+    t.string "bot1_name"
+    t.string "bot2_name"
+    t.integer "player_score"
+    t.integer "bot1_score"
+    t.integer "bot2_score"
+    t.string "bot_difficulty"
     t.text "categories"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  add_foreign_key "game_categories", "games"
 end

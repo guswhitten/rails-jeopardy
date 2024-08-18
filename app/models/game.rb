@@ -1,4 +1,7 @@
 class Game < ApplicationRecord
+  validates :player_name, presence: true
+  validates :bot_difficulty, presence: true
+
   def categories
     JSON.parse(self[:categories])
   end

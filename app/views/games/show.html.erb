@@ -1,5 +1,3 @@
-<%= javascript_include_tag 'application' %>
-
 <div class="game-container" data-round1='<%= @round_1_data.to_json %>'>
   <h1>Jeopardy!</h1>
 
@@ -15,24 +13,13 @@
     <% [200, 400, 600, 800, 1000].each do |value| %>
       <tr>
         <% @game.categories.each do |category| %>
-          <td data-category="<%= category %>" data-value="<%= value %>">
-            $<%= value %>
-          </td>
+          <%= render partial: 'game_cell', locals: { category: category, value: value, game: @game } %>
         <% end %>
       </tr>
     <% end %>
     </tbody>
   </table>
 
-  <div class="player-scores">
-    <div class="player-score">Player 1: $<%= @game.player_1_score %></div>
-    <div class="player-score">Player 2: $<%= @game.player_2_score %></div>
-    <div class="player-score">Player 3: $<%= @game.player_3_score %></div>
-  </div>
+  <%= render partial: 'layouts/scoring', locals: { game: @game } %>
 </div>
 
-<div class="overlay"></div>
-<div class="popover">
-  <div class="popover-question"></div>
-  <div class="popover-timer">5</div>
-</div>

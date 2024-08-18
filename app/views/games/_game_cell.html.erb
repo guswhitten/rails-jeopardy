@@ -1,0 +1,19 @@
+<%= javascript_include_tag 'jeopardy' %>
+
+<td data-category="<%= category %>" data-value="<%= value %>">
+  $<%= value %>
+</td>
+
+<div class="overlay" onclick="hidePopover(event)"></div>
+<div class="popover">
+  <div class="popover-question" data-answer=""></div>
+  <div class="question-timer">10</div>
+  <button class="buzzer" onclick="handleBuzzIn(event)">Buzz!</button>
+  <div class="answer-form">
+    <div class="answer-timer">15</div>
+    <form>
+      <input type="text" class="answer-input">
+      <button type="submit" onclick="handleAnswerSubmit(event)">Submit</button>
+    </form>
+  </div>
+</div>

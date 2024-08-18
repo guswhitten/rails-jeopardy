@@ -7,5 +7,17 @@
     <p>We have <%= @total_clues %> clues across <%= @categories %> categories.</p>
   </div>
 
-  <%= button_to "Start New Game", new_game_path, method: :get, class: "start-game-button" %>
+  <%= form_with(url: games_path, local: true) do |f| %>
+    <div class="form-group">
+      <%= f.label :player_name, "Player Name" %>
+      <%= f.text_field :player_name, required: true %>
+    </div>
+
+    <div class="form-group">
+      <%= f.label :bot_difficulty, "Bot Difficulty" %>
+      <%= f.select :bot_difficulty, options_for_select(["Easy", "Medium", "Hard"]), prompt: "Select Difficulty", required: true %>
+    </div>
+
+    <%= f.submit "Start New Game", class: "start-game-button" %>
+  <% end %>
 </div>

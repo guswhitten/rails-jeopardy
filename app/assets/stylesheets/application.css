@@ -59,27 +59,28 @@ h1 {
 }
 .game-board td {
     background-color: #060CE9;
-    color: #FFCC00;
     font-weight: bold;
     font-size: 44px;
     width: 150px;
     height: 100px;
-    text-align: center;
-    vertical-align: middle;
     cursor: pointer;
     transition: background-color 0.3s;
+}
+.game-board td a {
+    color: #FFCC00;
+    text-decoration: none;
 }
 .game-board td:hover {
     background-color: #0000FF;
 }
 
-.player-scores {
+.scores {
     display: flex;
     justify-content: center;
     margin-top: 20px;
 }
 
-.player-score {
+.score {
     background-color: #060CE9;
     color: #FFCC00;
     font-weight: bold;
@@ -125,4 +126,12 @@ h1 {
     height: 100%;
     background-color: rgba(0,0,0,0.7);
     z-index: 999;
+}
+
+.buzzer-button {
+    display: block;
+}
+
+.answer-form {
+    display: none;
 }
