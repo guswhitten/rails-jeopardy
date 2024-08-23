@@ -1,38 +1,39 @@
 let currentClueValue = 0;
-let currentClueAnswer = '';
+let currentClue;
+let currentCatNum;
 let questionTimer;
 let answerTimer;
-let roundData;
 
 function initializeGame() {
-    debugger;
     console.log("Initializing game");
-    const gameContainer = document.querySelector('.game-container');
-
-    try {
-        roundData = JSON.parse(gameContainer.dataset.round1);
-    } catch (error) {
-        console.error("Error parsing round data:", error);
-        return;
-    }
 
     document.querySelectorAll('.game-board td').forEach(cell => {
-        cell.addEventListener('click', function() {
-            const category = this.dataset.category;
-            const value = this.dataset.value;
-            showQuestion(category, value);
-            this.style.backgroundColor = '#000080';
-            this.innerHTML = '';
-        });
+        const clueData = JSON.parse(cell.dataset.clue);
+
+        if (clueData == null || clueData['answered']) {
+            // If the clue is already answered, set the background color without adding the event listener
+            cell.style.backgroundColor = '#000080';
+            cell.textContent = '';
+        } else {
+            const clickHandler = function() {
+                showQuestion(this.dataset);
+                this.style.backgroundColor = '#000080';
+                cell.textContent = '';
+
+                cell.removeEventListener('click', clickHandler);
+            };
+
+            cell.addEventListener('click', clickHandler);
+        }
     });
 }
 
-function showQuestion(category, value) {
-    const clue = roundData[category][value];
+function showQuestion(dataset) {
+    currentClue = JSON.parse(dataset.clue);
+    currentCatNum = dataset.catNum;
+    currentClueValue = dataset.clue.value;
 
-    currentClueValue = value;
-    currentClueAnswer = clue.answer;
-    document.querySelector('.popover-question').textContent = clue.question;
+    document.querySelector('.popover-question').textContent = currentClue.question;
     document.querySelector('.overlay').style.display = 'block';
     document.querySelector('.popover').style.display = 'block';
     document.querySelector('.question-timer').style.display = 'block';
@@ -73,7 +74,6 @@ function quesTimer() {
     timer.textContent = timeLeft.toString();
     if (timeLeft <= 0) {
         hidePopover();
-        alert("The correct answer was: " + currentClueAnswer);
     }
 }
 
@@ -81,23 +81,41 @@ function handleAnswerSubmit(event, timedOut = false) {
     if (event) event.preventDefault();
     clearInterval(answerTimer);
 
-    const userAnswer = timedOut ? "" : document.querySelector('.answer-input').value.trim().toLowerCase();
-    const correctAnswer = currentClueAnswer.toLowerCase();
+    const updateUrl = event.target.dataset.updateUrl;
+    const gameId = event.target.dataset.gameId;
+    const userAnswer = document.querySelector('.answer-input').value;
 
-    if (userAnswer === correctAnswer) {
-        updateScore(currentClueValue);
-        alert("Correct! You won " + currentClueValue + " points.");
-    } else {
-        updateScore(-currentClueValue);
-        alert("Sorry, that's incorrect. The correct answer was: " + correctAnswer);
-    }
+    fetch(updateUrl, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+        },
+        body: JSON.stringify({
+            game: {
+                id: gameId,
+                answer: userAnswer,
+                clue_id: currentClue['id'],
+                cat_num: currentCatNum
+            }
+        })
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.correct) {
+            alert("Correct!");
+        } else {
+            debugger;
+            alert("Sorry, that's incorrect. The correct answer was: " + data.correct_answer);
+        }
+        document.getElementById('player-score').textContent = data.new_score;
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('An error occurred while submitting your answer.');
+    });
 
     hidePopover();
-}
-
-function updateScore(points) {
-    const playerScore = document.getElementById('player-score');
-    playerScore.textContent = parseInt(playerScore.textContent) + parseInt(points);
 }
 
 function hidePopover() {
@@ -110,4 +128,5 @@ function hidePopover() {
     document.querySelector('.popover').style.display = 'none';
 }
 
+document.addEventListener('DOMContentLoaded', initializeGame);
 document.addEventListener('turbo:load', initializeGame);

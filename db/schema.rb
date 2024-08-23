@@ -10,21 +10,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.1].define(version: 2024_08_13_210054) do
+ActiveRecord::Schema[7.1].define(version: 2024_08_23_132248) do
+  create_table "answers", force: :cascade do |t|
+    t.integer "clue_id", null: false
+    t.string "answer"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["clue_id"], name: "index_answers_on_clue_id"
+  end
+
   create_table "clues", force: :cascade do |t|
     t.string "category"
     t.date "air_date"
     t.text "question"
     t.string "value"
-    t.string "answer"
     t.string "round"
     t.string "show_number"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["air_date"], name: "index_clues_on_air_date"
     t.index ["category"], name: "index_clues_on_category"
     t.index ["round"], name: "index_clues_on_round"
-    t.index ["show_number"], name: "index_clues_on_show_number"
   end
 
   create_table "games", force: :cascade do |t|
@@ -35,9 +40,15 @@ ActiveRecord::Schema[7.1].define(version: 2024_08_13_210054) do
     t.integer "bot1_score"
     t.integer "bot2_score"
     t.string "bot_difficulty"
-    t.text "categories"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.json "category_1"
+    t.json "category_2"
+    t.json "category_3"
+    t.json "category_4"
+    t.json "category_5"
+    t.json "category_6"
   end
 
+  add_foreign_key "answers", "clues"
 end

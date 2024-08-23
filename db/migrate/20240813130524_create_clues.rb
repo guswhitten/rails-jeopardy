@@ -5,7 +5,6 @@ class CreateClues < ActiveRecord::Migration[7.1]
       t.date :air_date
       t.text :question
       t.string :value
-      t.string :answer
       t.string :round
       t.string :show_number
 
@@ -13,8 +12,6 @@ class CreateClues < ActiveRecord::Migration[7.1]
     end
 
     add_index :clues, :category
-    add_index :clues, :air_date
     add_index :clues, :round
-    add_index :clues, :show_number
   end
 end

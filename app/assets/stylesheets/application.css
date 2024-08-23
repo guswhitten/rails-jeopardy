@@ -59,16 +59,15 @@ h1 {
 }
 .game-board td {
     background-color: #060CE9;
+    color: #FFCC00;
     font-weight: bold;
     font-size: 44px;
     width: 150px;
     height: 100px;
+    text-align: center;
+    vertical-align: middle;
     cursor: pointer;
     transition: background-color 0.3s;
-}
-.game-board td a {
-    color: #FFCC00;
-    text-decoration: none;
 }
 .game-board td:hover {
     background-color: #0000FF;

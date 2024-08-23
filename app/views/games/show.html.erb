@@ -1,20 +1,28 @@
-<div class="game-container" data-round1='<%= @round_1_data.to_json %>'>
+<%= javascript_include_tag 'jeopardy' %>
+
+<div class="game-container">
   <h1>Jeopardy!</h1>
 
   <table class="game-board">
     <thead>
     <tr>
-      <% @game.categories.each do |category| %>
-        <th><%= category %></th>
-      <% end %>
+      <th><%= @game.category_1.dig('name') %></th>
+      <th><%= @game.category_2.dig('name') %></th>
+      <th><%= @game.category_3.dig('name') %></th>
+      <th><%= @game.category_4.dig('name') %></th>
+      <th><%= @game.category_5.dig('name') %></th>
+      <th><%= @game.category_6.dig('name') %></th>
     </tr>
     </thead>
     <tbody>
     <% [200, 400, 600, 800, 1000].each do |value| %>
       <tr>
-        <% @game.categories.each do |category| %>
-          <%= render partial: 'game_cell', locals: { category: category, value: value, game: @game } %>
-        <% end %>
+        <%= render partial: 'game_cell', locals: { cat: 1, clue: @game.category_1["#{value}"], id: @game.id } %>
+        <%= render partial: 'game_cell', locals: { cat: 2, clue: @game.category_2["#{value}"], id: @game.id } %>
+        <%= render partial: 'game_cell', locals: { cat: 3, clue: @game.category_3["#{value}"], id: @game.id } %>
+        <%= render partial: 'game_cell', locals: { cat: 4, clue: @game.category_4["#{value}"], id: @game.id } %>
+        <%= render partial: 'game_cell', locals: { cat: 5, clue: @game.category_5["#{value}"], id: @game.id } %>
+        <%= render partial: 'game_cell', locals: { cat: 6, clue: @game.category_6["#{value}"], id: @game.id } %>
       </tr>
     <% end %>
     </tbody>

@@ -7,19 +7,6 @@ class GamesController < ApplicationController
 
   def show
     @game = Game.find(params[:id])
-    @round_1_data = @game.round_1_data
-  end
-
-  def question
-    @game = Game.find(params[:id])
-    round_1_data = @game.round_1_data.with_indifferent_access
-    category = params[:category]
-    value = params[:value].to_i
-    @clue = round_1_data[category][value]
-
-    respond_to do |format|
-      format.js
-    end
   end
 
   def create
@@ -37,28 +24,47 @@ class GamesController < ApplicationController
   end
 
   def update
-    @game = Game.find(params[:id])
-    if @game.update(game_params)
-      # Handle successful update
-      respond_to do |format|
-        format.js { render js: "alert('Answer submitted successfully!');" }
-      end
-    else
-      # Handle failed update
-      respond_to do |format|
-        format.js { render js: "alert('Failed to submit answer.');" }
-      end
-    end
+    @game = Game.find(params[:game][:id])
+    correct_answer = Answer.find(params[:game][:clue_id])&.answer
+    user_answer = params[:game][:answer]
+    clue = Clue.find(params[:game][:clue_id])
+    value = clue.value&.sub('$', '')
+
+    # TODO: checking for correctness should be much more nuanced than a perfect string equality
+    is_correct = AnswerMatcher.match?(user_answer, correct_answer)
+    is_correct ? @game.player_score += value&.to_i : @game.player_score -= value&.to_i
+
+    # mark question as answered for this game
+    @game["category_#{params[:game][:cat_num]}"][value]['answered'] = true
+    @game.save
+
+    render json: {
+      correct: is_correct,
+      correct_answer: correct_answer,
+      new_score: @game.player_score
+    }
   end
 
   private
 
   def generate_game_data
-    @game.categories = Clue.where(round: "Jeopardy!")
-                           .select(:category)
-                           .distinct.order("RANDOM()")
-                           .limit(6)
-                           .pluck(:category)
+    categories = Clue.where(round: "Jeopardy!")
+                     .select(:category)
+                     .distinct
+                     .order("RANDOM()")
+                     .limit(6)
+                     .pluck(:category)
+
+    categories.each_with_index do |category, index|
+      category_data = {}
+      category_data[:name] = category
+      [200, 400, 600, 800, 1000].each do |value|
+        category_data[value] = Clue.where(category: category, value: "$#{value}", round: "Jeopardy!").first
+      end
+
+      @game["category_#{index + 1}"] = category_data
+    end
+
     @game.bot1_name = RandomName.generate
     @game.bot2_name = RandomName.generate
     @game.player_score = 0
