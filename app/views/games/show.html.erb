@@ -17,12 +17,12 @@
     <tbody>
     <% [200, 400, 600, 800, 1000].each do |value| %>
       <tr>
-        <%= render partial: 'game_cell', locals: { cat: 1, clue: @game.category_1["#{value}"], id: @game.id } %>
-        <%= render partial: 'game_cell', locals: { cat: 2, clue: @game.category_2["#{value}"], id: @game.id } %>
-        <%= render partial: 'game_cell', locals: { cat: 3, clue: @game.category_3["#{value}"], id: @game.id } %>
-        <%= render partial: 'game_cell', locals: { cat: 4, clue: @game.category_4["#{value}"], id: @game.id } %>
-        <%= render partial: 'game_cell', locals: { cat: 5, clue: @game.category_5["#{value}"], id: @game.id } %>
-        <%= render partial: 'game_cell', locals: { cat: 6, clue: @game.category_6["#{value}"], id: @game.id } %>
+        <%= render partial: 'game_cell', locals: { cat: 1, clue: @game.category_1["#{value}"] } %>
+        <%= render partial: 'game_cell', locals: { cat: 2, clue: @game.category_2["#{value}"] } %>
+        <%= render partial: 'game_cell', locals: { cat: 3, clue: @game.category_3["#{value}"] } %>
+        <%= render partial: 'game_cell', locals: { cat: 4, clue: @game.category_4["#{value}"] } %>
+        <%= render partial: 'game_cell', locals: { cat: 5, clue: @game.category_5["#{value}"] } %>
+        <%= render partial: 'game_cell', locals: { cat: 6, clue: @game.category_6["#{value}"] } %>
       </tr>
     <% end %>
     </tbody>

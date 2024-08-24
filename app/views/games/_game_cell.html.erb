@@ -1,10 +1,14 @@
-<td data-clue="<%= clue.to_json %>" data-cat-num="<%= cat %>">
+<td data-clue="<%= clue.to_json %>"
+    data-cat-num="<%= cat %>"
+    data-update-url="/games/<%= @game.id %>"
+    data-game-id="<%= @game.id %>"
+>
   <%= clue&.dig('value') %>
 </td>
 
 <div class="overlay" onclick="hidePopover(event)"></div>
 <div class="popover">
-  <div class="popover-question"></div>
+  <div class="popover-question"><%= clue&.dig('question') %></div>
   <div class="question-timer">10</div>
   <button class="buzzer" onclick="handleBuzzIn(event)">Buzz!</button>
   <div class="answer-form">
@@ -14,8 +18,8 @@
       <button type="submit"
               onclick="handleAnswerSubmit(event)"
               data-cat-num="<%= cat %>"
-              data-update-url="/games/<%= id %>"
-              data-game-id="<%= id %>"
+              data-update-url="/games/<%= @game.id %>"
+              data-game-id="<%= @game.id %>"
               data-clue="<%= clue.to_json %>"
       >
         Submit

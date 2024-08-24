@@ -1,6 +1,8 @@
-let currentClueValue = 0;
 let currentClue;
 let currentCatNum;
+let gameId;
+let updateUrl;
+
 let questionTimer;
 let answerTimer;
 
@@ -31,7 +33,8 @@ function initializeGame() {
 function showQuestion(dataset) {
     currentClue = JSON.parse(dataset.clue);
     currentCatNum = dataset.catNum;
-    currentClueValue = dataset.clue.value;
+    gameId = dataset.gameId;
+    updateUrl = dataset.updateUrl;
 
     document.querySelector('.popover-question').textContent = currentClue.question;
     document.querySelector('.overlay').style.display = 'block';
@@ -81,10 +84,8 @@ function handleAnswerSubmit(event, timedOut = false) {
     if (event) event.preventDefault();
     clearInterval(answerTimer);
 
-    const updateUrl = event.target.dataset.updateUrl;
-    const gameId = event.target.dataset.gameId;
     const userAnswer = document.querySelector('.answer-input').value;
-
+debugger;
     fetch(updateUrl, {
         method: 'PATCH',
         headers: {
@@ -92,21 +93,19 @@ function handleAnswerSubmit(event, timedOut = false) {
             'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
         },
         body: JSON.stringify({
-            game: {
-                id: gameId,
-                answer: userAnswer,
-                clue_id: currentClue['id'],
-                cat_num: currentCatNum
-            }
+            answer: userAnswer,
+            clue_id: currentClue['id'],
+            cat_num: currentCatNum,
+            clue_value: currentClue['value']
         })
     })
     .then(response => response.json())
     .then(data => {
         if (data.correct) {
-            alert("Correct!");
+            alert("Correct! The correct answer was: " + data.correct_answer);
         } else {
             debugger;
-            alert("Sorry, that's incorrect. The correct answer was: " + data.correct_answer);
+            alert("Sorry, the correct answer was: " + data.correct_answer);
         }
         document.getElementById('player-score').textContent = data.new_score;
     })
@@ -128,5 +127,4 @@ function hidePopover() {
     document.querySelector('.popover').style.display = 'none';
 }
 
-document.addEventListener('DOMContentLoaded', initializeGame);
 document.addEventListener('turbo:load', initializeGame);
