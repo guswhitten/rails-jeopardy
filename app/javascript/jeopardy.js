@@ -41,7 +41,7 @@ function showQuestion(dataset) {
     document.querySelector('.popover').style.display = 'block';
     document.querySelector('.question-timer').style.display = 'block';
     document.querySelector('.question-timer').textContent = '10';
-    document.querySelector('.buzzer').style.display = 'block';
+    document.querySelector('.buzzer-btn').style.display = 'block';
 
     clearInterval(questionTimer);
     questionTimer = setInterval(quesTimer, 1000);
@@ -49,9 +49,10 @@ function showQuestion(dataset) {
 
 function handleBuzzIn() {
     clearInterval(questionTimer);
+    debugger;
     document.querySelector('.answer-timer').style.display = 'block';
     document.querySelector('.answer-timer').textContent = '15';
-    document.querySelector('.buzzer').style.display = 'none';
+    document.querySelector('.buzzer-btn').style.display = 'none';
     document.querySelector('.answer-form').style.display = 'block';
     document.querySelector('.answer-input').focus();
 
@@ -85,7 +86,7 @@ function handleAnswerSubmit(event, timedOut = false) {
     clearInterval(answerTimer);
 
     const userAnswer = document.querySelector('.answer-input').value;
-debugger;
+
     fetch(updateUrl, {
         method: 'PATCH',
         headers: {
@@ -102,7 +103,7 @@ debugger;
     .then(response => response.json())
     .then(data => {
         if (data.correct) {
-            alert("Correct! The correct answer was: " + data.correct_answer);
+            alert(`Correct! (${data.correct_answer})`);
         } else {
             debugger;
             alert("Sorry, the correct answer was: " + data.correct_answer);

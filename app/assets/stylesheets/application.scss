@@ -1,10 +1,12 @@
+@import "bootstrap";
+
 body {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
-    background-color: #f0f0f0;
+    background-color: rgba(240, 240, 240, 0.22);
     font-family: Arial, sans-serif;
 }
 
@@ -21,25 +23,6 @@ h1 {
     text-align: center;
     padding: 20px;
     font-family: Arial, sans-serif;
-}
-
-.stats {
-    margin: 20px 0;
-    font-style: italic;
-}
-
-.start-game-button {
-    background-color: #060CE9;
-    color: white;
-    padding: 10px 20px;
-    font-size: 18px;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
-
-.start-game-button:hover {
-    background-color: #0507a5;
 }
 
 .game-board {
@@ -73,6 +56,10 @@ h1 {
     background-color: #0000FF;
 }
 
+.popover {
+    max-width: 500px !important;
+}
+
 .scores {
     display: flex;
     justify-content: center;
@@ -87,22 +74,6 @@ h1 {
     padding: 10px 20px;
     margin: 0 10px;
     border: 2px solid white;
-}
-
-.popover {
-    display: none;
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #060CE9;
-    color: white;
-    padding: 20px;
-    border: 2px solid white;
-    box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    z-index: 1000;
-    text-align: center;
-    max-width: 80%;
 }
 
 .popover-question {
@@ -125,10 +96,6 @@ h1 {
     height: 100%;
     background-color: rgba(0,0,0,0.7);
     z-index: 999;
-}
-
-.buzzer-button {
-    display: block;
 }
 
 .answer-form {
