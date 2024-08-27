@@ -8,6 +8,7 @@ gem "sprockets-rails"
 gem "sqlite3", "~> 1.4"
 gem "puma", ">= 5.0"
 gem "importmap-rails"
+gem "pg"
 gem "draper" # adds decorators for cleaner presentation logic
 gem "turbo-rails"
 gem "bootstrap"
