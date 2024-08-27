@@ -9,10 +9,8 @@
 
 <div class="overlay position-fixed top-0 start-0 w-100 h-100 bg-dark opacity-50" onclick="hidePopover(event)"></div>
 
-<div class="popover position-fixed top-50 start-50 translate-middle bg-white text-black border rounded shadow-lg p-20" style="display:none;">
-  <div class="popover-question mb-3">
-    <h5 class="text-primary"><%= clue&.dig('question') %></h5>
-  </div>
+<div class="popover position-fixed top-50 start-50 translate-middle bg-white text-center text-black border rounded shadow-lg p-20" style="display:none;">
+  <div class="popover-question m-3"><h5 class="text-primary"></h5></div>
   <div class="question-timer mb-2">
     <span class="badge bg-secondary">10</span>
   </div>
@@ -21,19 +19,19 @@
     <div class="answer-timer mb-2">
       <span class="badge bg-secondary">15</span>
     </div>
-    <form>
-      <div class="mb-2">
-        <input type="text" class="form-control answer-input" placeholder="What is...?">
+    <form onsubmit="handleAnswerSubmit(event)" class="inline">
+      <div class="m-2 d-flex">
+        <input type="text" class="form-control answer-input m-2" placeholder="What is...?">
+        <button type="submit"
+                class="btn btn-primary m-2"
+                data-cat-num="<%= cat %>"
+                data-update-url="/games/<%= @game.id %>"
+                data-game-id="<%= @game.id %>"
+                data-clue="<%= clue.to_json %>">
+          Submit
+        </button>
       </div>
-      <button type="submit"
-              class="btn btn-primary"
-              onclick="handleAnswerSubmit(event)"
-              data-cat-num="<%= cat %>"
-              data-update-url="/games/<%= @game.id %>"
-              data-game-id="<%= @game.id %>"
-              data-clue="<%= clue.to_json %>">
-        Submit
-      </button>
+
     </form>
   </div>
 </div>

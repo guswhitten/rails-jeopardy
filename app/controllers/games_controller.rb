@@ -47,13 +47,11 @@ class GamesController < ApplicationController
   private
 
   def generate_game_data
-    categories = Clue.where(id: Clue.where(round: "Jeopardy!")
-                                    .select('DISTINCT ON (category) id')
-                                    .order('category, RANDOM()')
-                                    .limit(6)
-    )
+    categories = Clue.where(round: "Jeopardy!")
+                     .select('DISTINCT category')
+                     .order('RANDOM()')
+                     .limit(6)
                      .pluck(:category)
-
 
     categories.each_with_index do |category, index|
       category_data = {}

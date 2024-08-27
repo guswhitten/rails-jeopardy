@@ -3,19 +3,25 @@
     <div class="col-md-4 mb-3">
       <div class="d-flex justify-content-between align-items-center p-3 border rounded bg-light">
         <strong><%= @game.player_name %></strong>
-        <span class="h4 mb-0"><span id="player-score"><%= @game.decorate.format_player_score %></span></span>
+        <span class="h4 mb-0" id="player-score">
+          <%= @game.decorate.format_player_score %>
+        </span>
       </div>
     </div>
     <div class="col-md-4 mb-3">
       <div class="d-flex justify-content-between align-items-center p-3 border rounded bg-light">
         <strong><%= @game.bot1_name %></strong>
-        <span class="h4 mb-0">$<span id="bot1-score"><%= @game.bot1_score %></span></span>
+        <span class="h4 mb-0" id="bot1-score">
+          $<%= @game.bot1_score %>
+        </span>
       </div>
     </div>
     <div class="col-md-4 mb-3">
       <div class="d-flex justify-content-between align-items-center p-3 border rounded bg-light">
         <strong><%= @game.bot2_name %></strong>
-        <span class="h4 mb-0">$<span id="bot2-score"><%= @game.bot2_score %></span></span>
+        <span class="h4 mb-0" id="bot2-score">
+          $<%= @game.bot2_score %>
+        </span>
       </div>
     </div>
   </div>

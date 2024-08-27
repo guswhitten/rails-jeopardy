@@ -1,11 +1,7 @@
 <div class="jeopardy-home container mt-5">
   <div class="text-center mb-4">
-    <h1 class="display-4">Welcome to Rails Jeopardy!</h1>
-    <p class="lead">Test your knowledge with our Jeopardy-style quiz game made with Rails.</p>
-  </div>
-
-  <div class="alert alert-info justify-content-center" role="alert">
-    We have <%= @total_clues %> clues across <%= @categories %> categories.
+    <h1 class="display-4">Welcome to Rails Trivia!</h1>
+    <p class="lead">Test your knowledge with our quiz game made with Rails.</p>
   </div>
 
   <div class="row justify-content-center">
@@ -17,7 +13,9 @@
         </div>
 
         <div class="form-group mt-4">
-          <%= f.select :bot_difficulty, options_for_select(["Easy", "Medium", "Hard"]), { prompt: "Select Bot Difficulty" }, { class: "form-select" } %>
+          <%= f.select :bot_difficulty, options_for_select(["Easy", "Medium", "Hard"]),
+                       { prompt: "Select Bot Difficulty", required: true },
+                       { class: "form-select" } %>
         </div>
 
         <div class="mt-4 d-flex justify-content-center">
@@ -25,5 +23,9 @@
         </div>
       <% end %>
     </div>
+  </div>
+
+  <div class="alert alert-info justify-content-center mt-4 d-inline-block" role="alert">
+    We have <strong><%= @total_clues %></strong> clues across <strong><%= @categories %> </strong> categories.
   </div>
 </div>

@@ -36,12 +36,12 @@ function showQuestion(dataset) {
     gameId = dataset.gameId;
     updateUrl = dataset.updateUrl;
 
-    document.querySelector('.popover-question').textContent = currentClue.question;
+    document.querySelector('.popover-question').textContent = currentClue.question?.replace(/^'|'$/g, "");
     document.querySelector('.overlay').style.display = 'block';
     document.querySelector('.popover').style.display = 'block';
     document.querySelector('.question-timer').style.display = 'block';
     document.querySelector('.question-timer').textContent = '10';
-    document.querySelector('.buzzer-btn').style.display = 'block';
+    document.querySelector('.buzzer-btn').style.display = 'inline-block';
 
     clearInterval(questionTimer);
     questionTimer = setInterval(quesTimer, 1000);
@@ -49,7 +49,8 @@ function showQuestion(dataset) {
 
 function handleBuzzIn() {
     clearInterval(questionTimer);
-    debugger;
+
+    document.querySelector('.question-timer').style.display = 'none';
     document.querySelector('.answer-timer').style.display = 'block';
     document.querySelector('.answer-timer').textContent = '15';
     document.querySelector('.buzzer-btn').style.display = 'none';
@@ -105,10 +106,9 @@ function handleAnswerSubmit(event, timedOut = false) {
         if (data.correct) {
             alert(`Correct! (${data.correct_answer})`);
         } else {
-            debugger;
             alert("Sorry, the correct answer was: " + data.correct_answer);
         }
-        document.getElementById('player-score').textContent = data.new_score;
+        document.getElementById('player-score').textContent = `$${data.new_score}`;
     })
     .catch(error => {
         console.error('Error:', error);

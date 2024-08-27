@@ -13,15 +13,12 @@ To view seed data in your SQL client, choose SQLite connection Type and Database
 * CSS styling
   * improve quality of alerts
   * make timer match jeopardy timer
-* fix score so negative comes before money sign
+* remove mentions of copyrighted names
 
 ### TODO (eventually)
 * implement bots (easy, medium, hard)
-
 * double jeopardy (and the rest of the game)
 * sounds
-* deploy to prod
-* use Postgres in prod
 
 ## Limitations
 * handle <a> links in the data
