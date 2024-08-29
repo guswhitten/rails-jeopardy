@@ -40,18 +40,7 @@ h1 {
     text-align: center;
     border: 2px solid white;
 }
-.game-board td {
-    background-color: #060CE9;
-    color: #FFCC00;
-    font-weight: bold;
-    font-size: 44px;
-    width: 150px;
-    height: 100px;
-    text-align: center;
-    vertical-align: middle;
-    cursor: pointer;
-    transition: background-color 0.3s;
-}
+
 .game-board td:hover {
     background-color: #0000FF;
 }
@@ -60,28 +49,6 @@ h1 {
     max-width: 500px !important;
 }
 
-.popover-question {
-    font-size: 24px;
-    margin-bottom: 20px;
-}
-
-.popover-timer {
-    font-size: 36px;
-    font-weight: bold;
-    color: #FFCC00;
-}
-
 .overlay {
-    display: none;
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0,0,0,0.7);
-    z-index: 999;
-}
-
-.answer-form {
     display: none;
 }

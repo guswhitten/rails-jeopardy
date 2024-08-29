@@ -8,7 +8,7 @@ let answerTimer;
 
 function initializeGame() {
     console.log("Initializing game");
-
+    document.querySelector('.game-overlay').style.display = 'none';
     document.querySelectorAll('.game-board td').forEach(cell => {
         const clueData = JSON.parse(cell.dataset.clue);
 
@@ -127,5 +127,3 @@ function hidePopover() {
     document.querySelector('.overlay').style.display = 'none';
     document.querySelector('.popover').style.display = 'none';
 }
-
-document.addEventListener('turbo:load', initializeGame);

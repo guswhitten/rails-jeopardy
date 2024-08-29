@@ -1,8 +1,13 @@
 <%= javascript_include_tag 'jeopardy' %>
 <div class="game-container">
-
-  <h1>Welcome!</h1>
-  <button onclick="initializeGame()" class="start-game-button">Start</button>
+  <div class="game-overlay">
+    <div class="position-fixed top-0 start-0 w-100 h-100 bg-dark opacity-50 "></div>
+    <div class="position-fixed bg-white p-4 text-center rounded shadow z-3 start-50 top-50 translate-middle" style="max-width: 400px;">
+      <h5>Game Rules</h5>
+      <p class="mb-4">Answer the questions by clicking on the board. Be quick to buzz in and score points. Good luck!</p>
+      <button class="btn btn-success btn-lg" onclick="initializeGame()">Play!</button>
+    </div>
+  </div>
 
   <table class="game-board">
     <thead>
