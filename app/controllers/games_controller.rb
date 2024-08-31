@@ -30,8 +30,10 @@ class GamesController < ApplicationController
     value = params[:clue_value]&.sub('$', '')
     category_data = @game["category_#{params[:cat_num]}"]
 
-    is_correct = user_answer.present? && AnswerMatcher.match?(user_answer, correct_answer)
-    is_correct ? @game.player_score += value&.to_i : @game.player_score -= value&.to_i
+    unless params[:time_out].present?
+      is_correct = user_answer.present? && AnswerMatcher.match?(user_answer, correct_answer)
+      is_correct ? @game.player_score += value&.to_i : @game.player_score -= value&.to_i
+    end
 
     # mark question as answered for this game
     category_data[value]['answered'] = true

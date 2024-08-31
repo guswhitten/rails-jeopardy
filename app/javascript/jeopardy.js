@@ -78,6 +78,7 @@ function quesTimer() {
     timeLeft--;
     timer.textContent = timeLeft.toString();
     if (timeLeft <= 0) {
+        handleQuestionTimeout();
         hidePopover();
     }
 }
@@ -114,6 +115,34 @@ function handleAnswerSubmit(event, timedOut = false) {
         console.error('Error:', error);
         alert('An error occurred while submitting your answer.');
     });
+
+    hidePopover();
+}
+
+function handleQuestionTimeout() {
+    clearInterval(questionTimer);
+
+    fetch(updateUrl, {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/json',
+            'X-CSRF-Token': document.querySelector('meta[name="csrf-token"]').content
+        },
+        body: JSON.stringify({
+            time_out: true,
+            clue_id: currentClue['id'],
+            cat_num: currentCatNum,
+            clue_value: currentClue['value']
+        })
+    })
+        .then(response => response.json())
+        .then(data => {
+            alert("The answer was: " + data.correct_answer);
+        })
+        .catch(error => {
+            console.error('Error:', error);
+            alert('An error occurred while submitting your answer.');
+        });
 
     hidePopover();
 }

@@ -9,17 +9,19 @@ To view seed data in your SQL client, choose SQLite connection Type and Database
 
 
 ### TODO (right now)
-* simplify Javascript (do more on backend)
 * CSS styling
   * improve quality of alerts
-  * make timer match jeopardy timer
-* remove mentions of copyrighted names
+* implement bots (easy, medium, hard)
 
 ### TODO (eventually)
-* implement bots (easy, medium, hard)
-* double jeopardy (and the rest of the game)
-* sounds
+* convert remaining .tsv data to usable question data and import
+* allow popover for looking at past question metadata:
+  * clue, value, answer
+  * who answered and result
+* end of game...announce winner
+* sounds?
+* simplify Javascript (do more on backend)
+
 
 ## Limitations
-* handle <a> links in the data
-  * jarchive does not have actual images for these links
+* handle <a> links in the data (remove)
