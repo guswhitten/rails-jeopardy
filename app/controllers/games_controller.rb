@@ -23,6 +23,25 @@ class GamesController < ApplicationController
   def edit
   end
 
+  def bot_buzzed
+    @game = Game.find(params[:id])
+    correct_answer = Answer.find(params[:clue_id])&.answer
+    value = params[:clue_value]&.sub('$', '')
+    bot_is_correct = rand <= params[:correct_answer_chance].to_f
+    category_data = @game["category_#{params[:cat_num]}"]
+
+    bot_is_correct ? @game.bot_score += value&.to_i : @game.bot_score -= value&.to_i
+
+    category_data[value]['answered'] = true
+    @game.save
+
+    render json: {
+      bot_is_correct: bot_is_correct,
+      correct_answer: correct_answer,
+      bot_new_score: @game.bot_score
+    }
+  end
+
   def update
     @game = Game.find(params[:id])
     correct_answer = Answer.find(params[:clue_id])&.answer
@@ -70,11 +89,9 @@ class GamesController < ApplicationController
       @game["category_#{index + 1}"] = category_data
     end
 
-    @game.bot1_name = RandomName.generate
-    @game.bot2_name = RandomName.generate
+    @game.bot_name = RandomName.generate
     @game.player_score = 0
-    @game.bot1_score = 0
-    @game.bot2_score = 0
+    @game.bot_score = 0
     @timer = QUESTION_TIMER[@game.bot_difficulty]
   end
 

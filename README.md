@@ -11,7 +11,6 @@ To view seed data in your SQL client, choose SQLite connection Type and Database
 ### TODO (right now)
 * CSS styling
   * improve quality of alerts
-* implement bots (easy, medium, hard)
 
 ### TODO (eventually)
 * convert remaining .tsv data to usable question data and import
