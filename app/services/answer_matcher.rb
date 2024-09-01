@@ -27,7 +27,7 @@ class AnswerMatcher
         .gsub(/\b(a|an|the)\b/, '') # Remove articles
         .gsub(/\(.*?\)/, '') # Remove parenthetical content
         .split('-').first # Take only the part before a dash
-        .strip
+      &.strip
   end
 
   def self.levenshtein_distance(s, t)
