@@ -28,7 +28,6 @@ const botSettings = {
     }
 };
 
-
 function initializeGame() {
     console.log("Initializing game");
 
@@ -67,7 +66,7 @@ function showQuestion(dataset) {
     document.querySelector('.question-timer').style.display = 'block';
     document.querySelector('.question-timer').textContent = '8';
     document.querySelector('.buzzer-btn').style.display = 'inline-block';
-    document.querySelector('.bot-buzzed').style.display = 'none';
+    document.querySelector('.answer-form').style.display = 'none';
 
     clearInterval(questionTimer);
     questionTimer = setInterval(quesTimer, 1000);
@@ -82,10 +81,8 @@ function getRandomBuzzInTime() {
 function botDecideToBuzzIn() {
     if (Math.random() < botSettings[botDifficulty].buzzInChance) {
         clearInterval(questionTimer);
-        document.querySelector('.question-timer').style.display = 'none';
         document.querySelector('.buzzer-btn').style.display = 'none';
-        document.querySelector('.bot-buzzed').style.display = 'block';
-        document.querySelector('.bot-buzzed').textContent = 'Bot Buzzed!';
+        document.querySelector('.question-timer').textContent = 'Bot Buzzed!';
 
         fetch(`/games/${gameId}/bot_buzzed`, {
             method: 'POST',
@@ -153,7 +150,7 @@ function quesTimer() {
     }
 }
 
-function handleAnswerSubmit(event, timedOut = false) {
+function handleAnswerSubmit(event) {
     if (event) event.preventDefault();
     clearInterval(answerTimer);
 
@@ -216,9 +213,12 @@ function handleQuestionTimeout() {
 function hidePopover() {
     clearInterval(questionTimer);
     clearInterval(answerTimer);
+
+    debugger;
     document.querySelector('.answer-form').style.display = 'none';
     document.querySelector('.answer-input').value = '';
     document.querySelector('.answer-timer').style.display = 'none';
+    document.querySelector('.overlay').style.display = 'none';
     document.querySelector('.overlay').style.display = 'none';
     document.querySelector('.popover').style.display = 'none';
 }

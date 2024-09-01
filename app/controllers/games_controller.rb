@@ -1,6 +1,4 @@
 class GamesController < ApplicationController
-  QUESTION_TIMER = { 'Hard' => 5, 'Medium' => 6, 'Easy' => 7 }
-
   def new
     redirect_to game_path(@game)
   end
@@ -68,17 +66,20 @@ class GamesController < ApplicationController
   private
 
   def generate_game_data
-    categories = Clue.where(round: "Jeopardy!")
-                     .select('DISTINCT category')
+    categories = Clue.select('DISTINCT category')
                      .order('RANDOM()')
-                     .limit(6)
+                     .limit(10)
                      .pluck(:category)
 
     categories.each_with_index do |category, index|
       category_data = {}
       category_data[:name] = category
 
-      clues = Clue.where(category: category, round: "Jeopardy!").order(:value)
+      clues = Clue.where(category: category).order(:value)
+      if clues.size < 5
+        index -= 1
+        next
+      end
 
       [200, 400, 600, 800, 1000].each_with_index do |value, i|
         clue = clues[i]
@@ -87,12 +88,12 @@ class GamesController < ApplicationController
       end
 
       @game["category_#{index + 1}"] = category_data
+      break if @game['category_6'].present?
     end
 
     @game.bot_name = RandomName.generate
     @game.player_score = 0
     @game.bot_score = 0
-    @timer = QUESTION_TIMER[@game.bot_difficulty]
   end
 
   def game_params
