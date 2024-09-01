@@ -21,13 +21,9 @@ gem "tzinfo-data", platforms: %i[ windows jruby ]
 group :development, :test do
   gem "byebug"
   gem "debug"
+  gem 'rspec-rails'
 end
 
 group :development do
   gem "web-console"
-end
-
-group :test do
-  gem "capybara"
-  gem "selenium-webdriver"
 end
