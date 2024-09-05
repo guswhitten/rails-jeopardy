@@ -11,20 +11,20 @@ const botSettings = {
     Easy: {
         buzzInChance: 0.35,
         correctAnswerChance: 0.45,
-        minBuzzInTime: 3,
+        minBuzzInTime: 4,
         maxBuzzInTime: 7
     },
     Medium: {
         buzzInChance: 0.55,
         correctAnswerChance: 0.6,
-        minBuzzInTime: 3,
+        minBuzzInTime: 3.5,
         maxBuzzInTime: 5
     },
     Hard: {
         buzzInChance: 0.65,
         correctAnswerChance: 0.78,
-        minBuzzInTime: 2,
-        maxBuzzInTime: 4
+        minBuzzInTime: 2.5,
+        maxBuzzInTime: 4.5
     }
 };
 
