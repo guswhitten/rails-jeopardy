@@ -9,12 +9,11 @@ To view seed data in your SQL client, choose SQLite connection Type and Database
 
 
 ### TODO (right now)
-* CSS styling
-  * improve quality of alerts
-* navbar
-* footer?
+* improve privacy policy
 
 ### TODO (eventually)
+* CSS styling
+  * improve quality of alerts
 * convert remaining .tsv data to usable question data and import
 * allow popover for looking at past question metadata:
   * clue, value, answer
@@ -25,4 +24,4 @@ To view seed data in your SQL client, choose SQLite connection Type and Database
 
 
 ## Limitations
-* handle <a> links in the data (remove)
+* remove <a> & </br> tags in the data
