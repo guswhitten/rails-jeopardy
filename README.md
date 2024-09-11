@@ -9,7 +9,7 @@ To view seed data in your SQL client, choose SQLite connection Type and Database
 
 
 ### TODO (right now)
-* improve privacy policy
+
 
 ### TODO (eventually)
 * CSS styling
@@ -21,6 +21,10 @@ To view seed data in your SQL client, choose SQLite connection Type and Database
 * end of game...announce winner
 * sounds?
 * simplify Javascript (do more on backend)
+* use turbo streams
+* add ability to find past game?
+* add ability to return to current game if navigating away
+  * session-based
 
 
 ## Limitations
