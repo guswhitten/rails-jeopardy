@@ -3,13 +3,17 @@
     <%= link_to root_path, class: "navbar-brand ml-4" do %>
       <%= image_tag "rails-trivia-93x67.png", alt: "Rails Trivia Logo" %>
     <% end %>
+
     <button class="navbar-toggler custom-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
-      <ul class="navbar-nav">
-        <%= link_to "Privacy Policy", privacy_path, class: "nav-item text-light" %>
-      </ul>
+      <div class="alert alert-info m-2" role="alert">
+        Clues: <strong><%= @total_clues %></strong>
+      </div>
+      <div class="alert alert-info m-2" role="alert">
+        Categories: <strong><%= @total_categories %></strong>
+      </div>
     </div>
   </div>
 </nav>

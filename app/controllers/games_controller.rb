@@ -1,4 +1,11 @@
 class GamesController < ApplicationController
+  before_action :validate_game_id, only: [:index, :show]
+
+  def index
+    @game = Game.find(params[:id])
+    redirect_to game_path(@game)
+  end
+
   def new
     redirect_to game_path(@game)
   end
@@ -98,5 +105,12 @@ class GamesController < ApplicationController
 
   def game_params
     params.permit(:player_name, :bot_difficulty)
+  end
+
+  def validate_game_id
+    unless params[:id].present? && Game.exists?(params[:id])
+      flash[:alert] = "Invalid Game ID"
+      redirect_to root_path
+    end
   end
 end

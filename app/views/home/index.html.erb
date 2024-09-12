@@ -4,7 +4,7 @@
     <p class="lead">Test your knowledge with our quiz game made with Rails.</p>
   </div>
 
-  <div class="row justify-content-center">
+  <div class="row justify-content-center mb-5">
     <div class="col-md-6">
       <%= form_with(url: games_path, local: true, class: "card p-4 shadow") do |f| %>
         <div class="form-group">
@@ -22,10 +22,15 @@
           <%= f.submit "New Game", class: "btn btn-primary btn-lg" %>
         </div>
       <% end %>
+      </div>
     </div>
-  </div>
-
-  <div class="alert alert-info justify-content-center mt-4 d-inline-block" role="alert">
-    We have <strong><%= @total_clues %></strong> clues across <strong><%= @categories %> </strong> categories.
-  </div>
+  <%= form_with(url: game_path(id: ''), method: :get, local: true, class: "continue-game container p-4 shadow mt-5 d-flex justify-content-center w-fit") do |f| %>
+    <div class="form-group">
+      <%= f.label :id, "Continue past game?", class: "h5 form-label" %>
+      <div class="mt-4 d-flex">
+        <%= f.text_field :id, name: "id", class: "form-control", placeholder: "Enter Game ID", style: "margin-right: 10px;" %>
+        <%= f.submit "Find", class: "btn btn-primary btn-sm ml-4" %>
+      </div>
+    </div>
+  <% end %>
 </div>

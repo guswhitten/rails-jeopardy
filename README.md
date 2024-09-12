@@ -9,7 +9,7 @@ To view seed data in your SQL client, choose SQLite connection Type and Database
 
 
 ### TODO (right now)
-
+* add ability to find past game?
 
 ### TODO (eventually)
 * CSS styling
@@ -22,7 +22,6 @@ To view seed data in your SQL client, choose SQLite connection Type and Database
 * sounds?
 * simplify Javascript (do more on backend)
 * use turbo streams
-* add ability to find past game?
 * add ability to return to current game if navigating away
   * session-based
 
