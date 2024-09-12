@@ -9,7 +9,7 @@ To view seed data in your SQL client, choose SQLite connection Type and Database
 
 
 ### TODO (right now)
-* add ability to find past game?
+* flash error when past game not found
 
 ### TODO (eventually)
 * CSS styling
