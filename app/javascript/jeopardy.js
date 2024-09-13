@@ -177,6 +177,11 @@ function handleAnswerSubmit(event) {
             customAlert(`Sorry, the correct answer was:\n ${data.correct_answer}`, hidePopover);
         }
         document.getElementById('player-score').textContent = `$${data.new_score}`;
+
+        if (data.game_over) {
+            window.location.href = '/game_over'
+        }
+
     })
     .catch(error => {
         console.error('Error:', error);

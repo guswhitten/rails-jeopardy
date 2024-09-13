@@ -61,12 +61,14 @@ class GamesController < ApplicationController
 
     # mark question as answered for this game
     category_data[value]['answered'] = true
+    @game.answered_count += 1
     @game.save
 
     render json: {
       correct: is_correct,
       correct_answer: correct_answer,
-      new_score: @game.player_score
+      new_score: @game.player_score,
+      game_over: game_over?
     }
   end
 
@@ -112,5 +114,9 @@ class GamesController < ApplicationController
       flash[:alert] = "Invalid Game ID"
       redirect_to root_path
     end
+  end
+
+  def game_over?
+    @game.answered_count >= 30
   end
 end

@@ -10,6 +10,7 @@ To view seed data in your SQL client, choose SQLite connection Type and Database
 
 ### TODO (right now)
 * flash error when past game not found
+* end of game...announce winner
 
 ### TODO (eventually)
 * CSS styling
@@ -18,13 +19,12 @@ To view seed data in your SQL client, choose SQLite connection Type and Database
 * allow popover for looking at past question metadata:
   * clue, value, answer
   * who answered and result
-* end of game...announce winner
 * sounds?
 * simplify Javascript (do more on backend)
 * use turbo streams
 * add ability to return to current game if navigating away
   * session-based
-
+* make mobile friendly (almost there)
 
 ## Limitations
 * remove <a> & </br> tags in the data
